@@ -1,3 +1,4 @@
+pub mod prelude;
 pub struct UnsafeSlice<T> {
     ptr: *const T,
     len: usize,
@@ -30,9 +31,7 @@ impl<T> std::ops::Index<usize> for UnsafeSlice<T> {
     type Output = T;
     #[inline]
     fn index(&self, index: usize) -> &Self::Output {
-        unsafe {
-            self.ptr.offset(index as _).as_ref().unwrap()
-        }
+        unsafe { self.ptr.offset(index as _).as_ref().unwrap() }
     }
 }
 
@@ -54,4 +53,3 @@ impl<T> IntoUnsafeSlice<T> for Vec<T> {
         self[..].into()
     }
 }
-
