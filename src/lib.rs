@@ -3,20 +3,36 @@ pub struct UnsafeSlice<T> {
     len: usize,
 }
 
+impl<T> Clone for UnsafeSlice<T> {
+    fn clone(&self) -> Self {
+        Self {
+            ptr: self.ptr,
+            len: self.len,
+        }
+    }
+}
+
 impl<T> UnsafeSlice<T> {
+    pub fn is_empty(&self) -> bool {
+        self.len == 0
+    }
+
     pub fn len(&self) -> usize {
         self.len
     }
 
     pub fn iter(&self) -> std::slice::Iter<'_, T> {
-        unsafe { std::slice::from_raw_parts(self.ptr, self.len).iter() }
+        unsafe { std::slice::from_raw_parts(self.ptr, self.len) }.iter()
     }
 }
 
 impl<T> std::ops::Index<usize> for UnsafeSlice<T> {
     type Output = T;
+    #[inline]
     fn index(&self, index: usize) -> &Self::Output {
-        todo!()
+        unsafe {
+            self.ptr.offset(index as _).as_ref().unwrap()
+        }
     }
 }
 
