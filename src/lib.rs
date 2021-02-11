@@ -14,10 +14,12 @@ impl<T> Clone for UnsafeSlice<T> {
 }
 
 impl<T> UnsafeSlice<T> {
+    #[inline]
     pub fn is_empty(&self) -> bool {
         self.len == 0
     }
 
+    #[inline]
     pub fn len(&self) -> usize {
         self.len
     }
