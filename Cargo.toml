@@ -1,5 +1,5 @@
 [package]
-name = "unsafe_slice"
+name = "unsafe_ref"
 version = "0.1.0"
 authors = ["adamnemecek <adamnemecek@gmail.com>"]
 edition = "2018"
